@@ -202,3 +202,25 @@ export function noFa(data){
       data:data
   })
 }
+
+export function selectOrdresById(data){
+  return request({
+      method:"post",
+      url:'/order/selectOrdresById',
+      headers: {
+        'Content-Type': 'text/plain'
+      },
+      data:data
+  })
+}
+
+export function selectOrdresStateOneById(data){
+  return request({
+      method:"post",
+      url:'/order/selectOrdresStateOneById',
+      headers: {
+        'Content-Type': 'text/plain'
+      },
+      data:data
+  })
+}

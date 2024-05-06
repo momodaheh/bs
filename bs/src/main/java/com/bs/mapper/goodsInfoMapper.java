@@ -25,4 +25,10 @@ public interface goodsInfoMapper extends BaseMapper<goodsInfo>{
 
     @Insert("insert into good_info (goodsId,attribute,price,number,isDel) values(#{goodsId},#{attribute},#{price},#{number},0)")
     void addGoodsInfo(goodsInfo goodsInfo)throws SQLException;
+
+    @Select("select * from good_info where id=#{id}")
+    goodsInfo selectById(int id)throws SQLException;
+
+    @Update("update good_info set number=#{number} where id=#{id}")
+    void updateInfoNumber(int id,int number)throws SQLException;
 }

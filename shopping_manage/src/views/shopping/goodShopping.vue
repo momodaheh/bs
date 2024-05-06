@@ -1,7 +1,8 @@
 <template>
   <div class="listView">
     <div class="listBox">
-        <el-row :gutter="20">
+      <el-page-header @back="goBack"  title="Back" />
+        <el-row :gutter="20" v-if="goodsList.length > 0" >
           <el-col 
             v-for="item in goodsList"
             :key="item.id"
@@ -19,7 +20,9 @@
             </el-card>
           </el-col>
         </el-row>
+        <el-empty v-else :image-size="200" description="没有查询到您想要的物品"/>
     </div>
+    
   </div>
 </template>
 
@@ -35,6 +38,9 @@ const showDetail=(item)=>{
      router.push({
         name:'goodDetail',
       })
+}
+const goBack=()=>{
+  router.go(-1);
 }
 </script>
 

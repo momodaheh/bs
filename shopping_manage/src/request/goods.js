@@ -171,3 +171,14 @@ export function deleteAttributeValue(data){
         data:data
     })
 }
+
+export function selectByBrandCotegory(brandId,categoryId){
+    return request({
+        method:"post",
+        url:'/goods/selectByBrandCotegory',
+        data: {
+            brandId: brandId,
+            categoryId: categoryId,
+        }
+    })
+}

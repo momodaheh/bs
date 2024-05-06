@@ -13,23 +13,23 @@ import java.util.Map;
 public interface orderMapper extends BaseMapper<order>{
 
     @Select("select * from orders where id=#{id}")
-    order selectOrderbyId(int id) throws SQLException;
+    order selectOrderbyId(String id) throws SQLException;
 
     @Select("select o.*,ui.*,a.*,g.*,gi.* from orders o join user_infor ui on o.userId=ui.id\n" +
             "join goods g on g.id=o.goodId\n" +
             "join good_info gi on gi.id=o.goodsInfoId\n" +
             "join address a on a.id=o.addressId\n" +
-            "where o.isDel=0")
+            "where o.isDel=0 order by o.createTime DESC")
     List<Map<String,Object>> selectOrders() throws SQLException;
 
-    @Insert("insert into orders (userId,goodId,goodsInfoId,number,price,state,addressId,createTime,updateTime,isDel)values(#{userId},#{goodId},#{goodInfoId},#{amount},#{totalPrice},0,#{addressId},now(),now(),0)")
+    @Insert("insert into orders (id,userId,goodId,goodsInfoId,number,price,state,addressId,createTime,updateTime,isDel)values(#{id},#{userId},#{goodId},#{goodInfoId},#{amount},#{totalPrice},0,#{addressId},now(),now(),0)")
     void addOrder(Map<String,Object> obj) throws SQLException;
 
-    @Update("update orders set payId=#{payId},state=1 ,updateTime=now(), where id=#{id}")
-    void orderPay(int id,String payId) throws SQLException;
+    @Update("update orders set payId=#{payId},state=1 ,updateTime=now() where id=#{id}")
+    void orderPay(String id,String payId) throws SQLException;
 
     @Update("update orders set isDel=1,updateTime=now() where id=#{id} ")
-    void deleteOrder(int id) throws SQLException;
+    void deleteOrder(String id) throws SQLException;
 
     @Select("select o.*, g.*,gi.*,a.* from orders o join goods g on g.id=o.goodId\n" +
             "join good_info gi on gi.id=o.goodsInfoId \n" +
@@ -52,7 +52,7 @@ public interface orderMapper extends BaseMapper<order>{
     List<Map<String,Object>> selectOrdersStateOne()throws SQLException;
 
     @Update("update orders set logisticsId=#{logisticsId} ,state=2 ,updateTime=now() where id=#{id}")
-    void fahuo(int id,String logisticsId )throws SQLException;
+    void fahuo(String id,String logisticsId )throws SQLException;
 
     @Select("select o.*, g.*,gi.*,a.* from orders o join goods g on g.id=o.goodId\n" +
             "join good_info gi on gi.id=o.goodsInfoId \n" +
@@ -131,5 +131,19 @@ public interface orderMapper extends BaseMapper<order>{
     List<Map<String,Object>> selectGoodsByPriceTop()throws SQLException;
 
     @Update("update orders set state=3 , updateTime=now() where id=#{id}")
-    void Shouhuo(int id)throws SQLException;
+    void Shouhuo(String id)throws SQLException;
+
+    @Select("select o.*,ui.*,a.*,g.*,gi.* from orders o join user_infor ui on o.userId=ui.id\n" +
+            "join goods g on g.id=o.goodId\n" +
+            "join good_info gi on gi.id=o.goodsInfoId\n" +
+            "join address a on a.id=o.addressId\n" +
+            "where o.isDel=0 and o.id like CONCAT('%', #{id},'%') order by o.createTime DESC")
+    List<Map<String,Object>> selectOrdresById(String id)throws SQLException;
+
+    @Select("select o.*,ui.*,a.*,g.*,gi.* from orders o join user_infor ui on o.userId=ui.id\n" +
+            "join goods g on g.id=o.goodId\n" +
+            "join good_info gi on gi.id=o.goodsInfoId\n" +
+            "join address a on a.id=o.addressId\n" +
+            "where o.isDel=0 and o.state=1 and o.id like CONCAT('%', #{id},'%') order by o.createTime DESC")
+    List<Map<String,Object>> selectOrdresStateOneById(String id)throws SQLException;
 }

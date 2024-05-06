@@ -62,4 +62,22 @@ public class goodsInfoServiceImpl extends BaseServiceImpl<goodsInfo> implements 
             e.printStackTrace();
         }
     }
+
+    @Override
+    public goodsInfo selectById(int id) {
+        try {
+            return mapper.selectById(id);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public void updateInfoNumber(int id, int number) {
+        try {
+            mapper.updateInfoNumber(id,number);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -46,8 +46,7 @@ public class alipayController {
 
     @GetMapping("/pay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
     public void pay(String orderId, HttpServletResponse httpResponse) throws Exception {
-        int id=Integer.parseInt(orderId);
-        order order=service.selectOrderbyId(id);
+        order order=service.selectOrderbyId(orderId);
         goods good=service.selectgood(order.getGoodId());
         // 1. 创建Client，通用SDK提供的Client，负责调用支付宝的API
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, aliPayConfig.getAppId(),
@@ -120,8 +119,7 @@ public class alipayController {
 //                    ordersMapper.updateById(orders);
 //                }
 
-                int id=Integer.parseInt(outTradeNo);
-                service.orderPay(id,alipayTradeNo);
+                service.orderPay(outTradeNo,alipayTradeNo);
             }
         }
         return "success";

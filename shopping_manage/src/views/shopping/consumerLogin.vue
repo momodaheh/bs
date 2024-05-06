@@ -58,6 +58,7 @@
       </div>
       <div class="item">
         <el-button @click="RegisterUser" type="success" round>注册</el-button>
+        <el-button @click="back" type="primary" round>返回</el-button>
       </div>
     </div>
   </div>
@@ -91,7 +92,6 @@ let login = () => {
       store.commit("updateIsLogin");
       // 获取用户原本尝试访问的页面路径
         const redirectRoute = route.query.redirect || "/";
-
         // 重定向到用户原本尝试访问的页面
         router.push(redirectRoute);
     } else {
@@ -113,12 +113,16 @@ const RegisterUser = async () => {
   } else {
     if (checkPassword.value === consumer.password) {
       await Register(consumer);
+      show.value = !show.value;
     } else {
       ElMessage.error("两次密码不一致");
     }
   }
-  show.value = !show.value;
+  
 };
+const back=()=>{
+  show.value = !show.value;
+}
 </script>
 
 <style lang="less" scoped>

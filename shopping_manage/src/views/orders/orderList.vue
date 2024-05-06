@@ -50,7 +50,7 @@
         <el-table-column prop="number" label="数量" width="70" />
         <el-table-column prop="price" label="总价" width="100" />
         <el-table-column prop="createTime" label="创建时间" width="100" />
-        <el-table-column prop="updateTime" label="创建时间" width="100" />
+        <el-table-column prop="updateTime" label="修改时间" width="100" />
         <el-table-column prop="payId" label="支付订单" width="100" />
         <el-table-column prop="logisticsId" label="物流单号" width="100" />
         <el-table-column prop="state" label="状态" width="100">
@@ -85,11 +85,12 @@
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import { selectOrders, deleteOrder } from "../../request/order";
+import { selectOrders, deleteOrder ,selectOrdresById} from "../../request/order";
 const tableData = ref([]);
 const currentPage = ref(1);
 const pageSize = ref(5);
 const total = ref(0);
+const searchKeyword = ref("");
 onMounted(async () => {
   const response = await selectOrders();
   if (response.data.code === 0) {
@@ -137,9 +138,53 @@ function formatState(state) {
       return '未知状态';
   }
 }
+
+async function handleSearch() {
+  const keyword = searchKeyword.value.trim();
+  
+  if (!keyword) {
+    // 如果关键词为空，则加载所有数据
+    const response = await selectOrders();
+    if (response.data.code === 0) {
+      tableData.value = response.data.data;
+      total.value = tableData.value.length;
+    }
+  } else {
+    // 如果有关键词，则发送带有关键词的请求进行搜索
+    const response = await selectOrdresById(keyword);
+    if (response.data.code === 0) {
+      tableData.value = response.data.data;
+      total.value = tableData.value.length;
+    }
+  }
+
+  currentPage.value = 1; // 搜索后重置当前页码为第一页
+}
 </script>
 
 <style lang="less" scoped>
+.home {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  .goodsBox {
+    // width: 80%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .searchBox {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .tableStyle {
+      margin-top: 20px;
+    }
+  }
+}
 .itemStyle {
   display: flex;
   flex-direction: row;

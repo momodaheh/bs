@@ -110,6 +110,14 @@ export function selectGoodsCom(){
   })
 }
 
+//获取电脑物品列表
+export function selectGoodsWatch(){
+  return request({
+      method:"post",
+      url:'/goods/selectGoodsWatch',
+  })
+}
+
 //搜索物品
 export function selectGoodsByName(data){
   return request({

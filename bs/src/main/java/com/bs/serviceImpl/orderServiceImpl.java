@@ -29,7 +29,7 @@ public class orderServiceImpl extends BaseServiceImpl<order> implements orderSer
     }
 
     @Override
-    public order selectOrderbyId(int id) {
+    public order selectOrderbyId(String id) {
         try {
            return mapper.selectOrderbyId(id);
         } catch (SQLException e) {
@@ -58,7 +58,7 @@ public class orderServiceImpl extends BaseServiceImpl<order> implements orderSer
     }
 
     @Override
-    public void orderPay(int id, String payId) {
+    public void orderPay(String id, String payId) {
         try {
             mapper.orderPay(id,payId);
         } catch (SQLException e) {
@@ -67,7 +67,7 @@ public class orderServiceImpl extends BaseServiceImpl<order> implements orderSer
     }
 
     @Override
-    public void deleteOrder(int id) {
+    public void deleteOrder(String id) {
         try {
             mapper.deleteOrder(id);
         } catch (SQLException e) {
@@ -116,7 +116,7 @@ public class orderServiceImpl extends BaseServiceImpl<order> implements orderSer
     }
 
     @Override
-    public void fahuo(int id, String logisticsId) {
+    public void fahuo(String id, String logisticsId) {
         try {
             mapper.fahuo(id,logisticsId);
         } catch (SQLException e) {
@@ -175,7 +175,7 @@ public class orderServiceImpl extends BaseServiceImpl<order> implements orderSer
     }
 
     @Override
-    public void Shouhuo(int id) {
+    public void Shouhuo(String id) {
         try {
             mapper.Shouhuo(id);
         } catch (SQLException e) {
@@ -197,6 +197,26 @@ public class orderServiceImpl extends BaseServiceImpl<order> implements orderSer
     public List<Map<String, Object>> noFa(int id) {
         try {
             return mapper.noFa(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> selectOrdresById(String id) {
+        try {
+            return mapper.selectOrdresById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> selectOrdresStateOneById(String id) {
+        try {
+            return mapper.selectOrdresStateOneById(id);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

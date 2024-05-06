@@ -10,4 +10,6 @@ public interface goodsInfoService extends BaseService<goodsInfo>{
      void deleteGoodsInfo(int id);
      void updateGoodsInfo(goodsInfo goodsInfo);
      void addGoodsInfo(goodsInfo goodsInfo);
+     goodsInfo selectById(int id);
+     void updateInfoNumber(int id,int number);
 }

@@ -44,4 +44,10 @@ public class commentController {
         service.addComment(obj);
         return ResultEntity.infor(ResultCode.SUCCESS);
     }
+
+    @RequestMapping("selectCommentByContent")
+    public ResultEntity<List<Map<String, Object>>> selectCommentByContent(@RequestBody String text){
+        List<Map<String, Object>> nopayList =service.selectCommentByContent(text);
+        return ResultEntity.infor(ResultCode.SUCCESS,nopayList);
+    }
 }

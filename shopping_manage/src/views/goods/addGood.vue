@@ -26,7 +26,7 @@
             />
           </el-select>
         </el-form-item> 
-        <el-form-item label="展示图片(最多4张):" class="formItem">
+        <el-form-item label="展示图片(最多3张):" class="formItem">
           </el-form-item>
     </el-form>
       <el-upload
@@ -51,6 +51,7 @@
 import { onMounted, reactive, ref } from 'vue';
 import {addGoods, upload} from '../../request/addGoods'
 import {selectBrands,selectCategorys} from '../../request/goods'
+import { ElMessage } from "element-plus";
 export default {
   setup() {
     // 已上传的文件列表
@@ -86,12 +87,12 @@ export default {
       // 检查文件类型是否为图片
       const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
       if (!isJpgOrPng) {
-        this.$message.error('只能上传 JPG 或 PNG 格式的图片!');
+        ElMessage.error('只能上传 JPG 或 PNG 格式的图片!');
       }
       // 检查图片大小是否小于 500kb
       const isLt5M = file.size / 1024 / 1024 < 0.5;
       if (!isLt5M) {
-        this.$message.error('上传图片必须小于 500KB!');
+        ElMessage.error('上传图片必须小于 500KB!');
       }
       return isJpgOrPng && isLt5M;
     }

@@ -12,8 +12,11 @@ public interface goodsService extends BaseService<goods>{
     void deleteGood(int id);
     List<Map<String,Object>> selectGoodsPhone();
     List<Map<String,Object>> selectGoodsCom();
+    List<Map<String,Object>> selectGoodsWatch();
     List<Map<String,Object>> selectGoodsByCategory(int id);
     List<Map<String,Object>> selectGoodsByName(String name);
 
     Map<String,Object> selectGoodsById(int id);
+
+    List<Map<String,Object>> selectByBrandCotegory(int BrandId,int categoryId);
 }

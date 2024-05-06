@@ -50,6 +50,14 @@ public interface goodsMapper extends BaseMapper<goods>{
             "GROUP BY g.id")
     List<Map<String,Object>> selectGoodsCom()throws SQLException;
 
+    @Select("SELECT g.*, b.brand, c.category_name, MIN(gi.price) as minprice\n" +
+            "FROM goods g\n" +
+            "JOIN brand b ON g.brandId = b.id\n" +
+            "JOIN category c ON g.categoryId = c.id\n" +
+            "JOIN good_info gi ON g.id = gi.goodsId\n" +
+            "WHERE g.isDel = 0 AND categoryId = 3\n" +
+            "GROUP BY g.id")
+    List<Map<String,Object>> selectGoodsWatch() throws SQLException;
     @Select("select g.*,b.brand,c.category_name ,MIN(gi.price) as minprice from goods g \n" +
             "join brand b on g.brandId=b.id \n" +
             "join category c on g.categoryId = c.id\n" +
@@ -63,4 +71,13 @@ public interface goodsMapper extends BaseMapper<goods>{
             "\tjoin category c on g.categoryId = c.id\n" +
             "\twhere g.id=#{id} ")
     Map<String,Object> selectGoodsById(int id) throws SQLException;
+
+    @Select("SELECT g.*, b.brand, c.category_name, MIN(gi.price) as minprice\n" +
+            "FROM goods g\n" +
+            "JOIN brand b ON g.brandId = b.id\n" +
+            "JOIN category c ON g.categoryId = c.id\n" +
+            "JOIN good_info gi ON g.id = gi.goodsId\n" +
+            "WHERE g.isDel = 0 AND c.id = #{categoryId} AND b.id=#{BrandId}\n" +
+            "GROUP BY g.id")
+    List<Map<String,Object>> selectByBrandCotegory(int BrandId,int categoryId)throws SQLException;
 }

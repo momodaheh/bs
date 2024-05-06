@@ -1,7 +1,7 @@
 <template>
   <div class="detailView">
     <div class="detailBox">
-      <el-page-header @back="goBack"  title=" " />
+      <el-page-header @back="goBack"  title="Back" />
       <div class="detail">
         <div class="left">
         <el-carousel indicator-position="outside" height="400px">
@@ -199,6 +199,12 @@ const goBack=()=>{
     background-color: #fff;
     display: flex;
     flex-direction: column;
+    .el-page-header{
+    width: 90%;
+    height: 50px;
+    display: flex;
+    
+  }
   }
   .detail {
     

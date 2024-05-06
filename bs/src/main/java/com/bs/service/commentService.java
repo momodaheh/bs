@@ -15,4 +15,6 @@ public interface commentService extends BaseService<comment>{
     List<Map<String,Object>> selectCommentsBygoodId(int goodId);
     void deleteComment(int id);
     void addComment(Map<String,Object> obj);
+
+    List<Map<String,Object>> selectCommentByContent(String text);
 }

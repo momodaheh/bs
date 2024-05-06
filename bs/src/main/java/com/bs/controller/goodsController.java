@@ -61,6 +61,11 @@ public class goodsController {
         return ResultEntity.infor(ResultCode.SUCCESS,goodsList);
     }
 
+    @RequestMapping("selectGoodsWatch")
+    public ResultEntity<List<Map<String, Object>>> selectGoodsWatch(){
+        List<Map<String,Object>> goodsList=service.selectGoodsWatch();
+        return ResultEntity.infor(ResultCode.SUCCESS,goodsList);
+    }
 
     @RequestMapping("selectGoodsByName")
     public ResultEntity<List<Map<String, Object>>> selectGoodsByName(@RequestBody String name){
@@ -73,5 +78,13 @@ public class goodsController {
         int id=Integer.parseInt(goodId);
         Map<String,Object> good=service.selectGoodsById(id);
         return ResultEntity.infor(ResultCode.SUCCESS,good);
+    }
+
+    @RequestMapping("selectByBrandCotegory")
+    public ResultEntity<List<Map<String,Object>>> selectByBrandCotegory(@RequestBody Map<String, Object> data){
+        int brandId = (int) data.get("brandId");
+        int categoryId = (int) data.get("categoryId");
+        List<Map<String,Object>> goodsList=service.selectByBrandCotegory(brandId,categoryId);
+        return ResultEntity.infor(ResultCode.SUCCESS,goodsList);
     }
 }

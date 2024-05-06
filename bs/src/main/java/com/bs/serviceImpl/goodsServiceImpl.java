@@ -77,6 +77,16 @@ public class goodsServiceImpl extends BaseServiceImpl<goods> implements goodsSer
     }
 
     @Override
+    public List<Map<String, Object>> selectGoodsWatch() {
+        try {
+            return mapper.selectGoodsWatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public List<Map<String, Object>> selectGoodsByCategory(int id) {
         try {
             return mapper.selectGoodsByCategory(id);
@@ -100,6 +110,16 @@ public class goodsServiceImpl extends BaseServiceImpl<goods> implements goodsSer
     public Map<String, Object> selectGoodsById(int id) {
         try {
             return mapper.selectGoodsById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> selectByBrandCotegory(int BrandId, int categoryId) {
+        try {
+            return mapper.selectByBrandCotegory(BrandId,categoryId);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

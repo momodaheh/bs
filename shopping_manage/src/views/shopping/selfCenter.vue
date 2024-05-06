@@ -1,7 +1,7 @@
 <template>
   <div class="selfView">
     <div class="content">
-      <el-page-header @back="goBack"  />
+      <el-page-header @back="goBack"  class="pageHeader"/>
       <div class="top">
         <div>
           <h1>{{ user.info.nickName }}的个人中心</h1>
@@ -152,13 +152,13 @@
       <span>邮箱地址:</span>
       <el-input v-model="newInfo.email" autocomplete="off" />
       <span>性别:</span>
-      <el-select v-model="newInfo.sex" style="margin-top: 3px">
-        <el-option label="男" value="1" />
-        <el-option label="女" value="0" />
+      <el-select v-model="newInfo.sex" style="margin-top: 3px" >
+        <el-option label="男" value=1 />
+        <el-option label="女" value=0 />
       </el-select>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogUpdateAddress = false">关闭</el-button>
+          <el-button @click="dialogUpdateInfo = false">关闭</el-button>
           <el-button type="primary" @click="updateInfoPrimary()">
             确认
           </el-button>
@@ -200,7 +200,7 @@ import {
 import { useStore } from "vuex";
 import { onMounted, reactive, ref } from "vue";
 import router from "@/router";
-import { ElMessage } from "element-plus";
+import { ElMessage ,} from "element-plus";
 const store = useStore();
 const userId = sessionStorage.getItem("userId");
 if (userId) {
@@ -283,6 +283,7 @@ const updateInfoPrimary = async () => {
   if (response.data.code === 0) {
     user.info = response.data.data;
   }
+  store.commit('setNickName', user.info.nickName);
 };
 
 const toPayOrder = () => {
@@ -332,8 +333,10 @@ const goBack=()=>{
   align-items: center;
   overflow-y: auto;
   .el-page-header{
-    width: 70%;
+    width: 90%;
     height: 50px;
+    display: flex;
+    
   }
   .content {
     width: 65%;

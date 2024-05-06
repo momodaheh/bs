@@ -64,6 +64,7 @@
 .all {
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   position: absolute;
   display: flex;
   flex-direction: column;

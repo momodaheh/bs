@@ -5,7 +5,8 @@ export default createStore({
     id:null,
     isLogin:false,
     token:"",
-    goodsList:[]
+    goodsList:[],
+    nickName:""
   },
   getters: {
   },
@@ -18,7 +19,10 @@ export default createStore({
     },
     setGoodsList(state,data){
       state.goodsList=data
-    }
+    },
+    setNickName(state, nickName) {
+      state.nickName = nickName;
+    },
   },
   actions: {
   },

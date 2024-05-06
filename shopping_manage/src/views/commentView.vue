@@ -67,7 +67,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import { selectComments, deleteComment } from "../request/user";
+import { selectComments, deleteComment ,selectCommentByContent} from "../request/user";
 // import { ElMessage } from "element-plus";
 const tableData = ref([]);
 const currentPage = ref(1);
@@ -105,6 +105,28 @@ async function handleDelete(data) {
     // 计算总条目数
     total.value = tableData.value.length;
   }
+}
+
+async function handleSearch() {
+  const keyword = searchKeyword.value.trim();
+  
+  if (!keyword) {
+    // 如果关键词为空，则加载所有数据
+    const response = await selectComments();
+    if (response.data.code === 0) {
+      tableData.value = response.data.data;
+      total.value = tableData.value.length;
+    }
+  } else {
+    // 如果有关键词，则发送带有关键词的请求进行搜索
+    const response = await selectCommentByContent(keyword);
+    if (response.data.code === 0) {
+      tableData.value = response.data.data;
+      total.value = tableData.value.length;
+    }
+  }
+
+  currentPage.value = 1; // 搜索后重置当前页码为第一页
 }
 </script>
 

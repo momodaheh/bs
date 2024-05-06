@@ -154,6 +154,16 @@ export function selectCommentsBygoodId(data){
     })
 }
 
+export function selectCommentByContent(data){
+    return request({
+        method:"post",
+        url:'/comment/selectCommentByContent',
+        headers: {
+            'Content-Type': 'text/plain'
+          },
+        data:data
+    })
+}
 export function selectRegisterUserName(data){
     return request({
         method:"post",

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class order {
-    private int id;
+    private String id;
     private int userId;
     private int goodId;
     private int goodsInfoId;

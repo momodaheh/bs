@@ -54,9 +54,9 @@
               </el-table-column>
               <el-table-column label="操作" width="100px">
                 <template #default="scope">
-                  <el-button v-if="scope.row.state === 0">支付</el-button>
+                  <el-button v-if="scope.row.state === 0" @click="toPay(scope.row.id)" >支付</el-button>
                   <!-- <el-button v-if="scope.row.state===1">未发货</el-button> -->
-                  <el-button v-if="scope.row.state === 2" @click="showModel(scope.row)">确认收货</el-button>
+                  <el-button v-if="scope.row.state === 2" @click="showModel(scope.row)" type="success">确认收货</el-button>
                   <el-button
                     v-if="scope.row.state === 3"
                     type="primary"
@@ -152,7 +152,7 @@
               <el-table-column label="操作" width="100px">
                 <template #default="scope">
                   <div class="itemStyle">
-                    <el-button @click="showModel(scope.row)"
+                    <el-button @click="showModel(scope.row)" type="success"
                       >确认收货</el-button
                     >
                   </div>
@@ -308,7 +308,10 @@ const drawerClose = () => {
 const goBack=()=>{
   router.go(-1);
 }
-
+const toPay=async(data)=>{
+  window.open('http://localhost:8082/alipay/pay?orderId='+data)
+  
+}
 const pushPrimary=async()=>{
   commentDate.userId=userId.value;
   commentDate.goodId=currentRow.value.goodId;

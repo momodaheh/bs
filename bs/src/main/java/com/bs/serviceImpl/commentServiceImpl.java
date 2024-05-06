@@ -64,4 +64,14 @@ public class commentServiceImpl extends BaseServiceImpl<comment> implements comm
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Map<String, Object>> selectCommentByContent(String text) {
+        try {
+            return mapper.selectCommentByContent(text);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

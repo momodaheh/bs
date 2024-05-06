@@ -27,4 +27,9 @@ public interface commentMapper extends BaseMapper<comment> {
 
     @Insert("insert into comments (userId,goodId,content,createTime,isDel,commentType) values(#{userId},#{goodId},#{content},now(),0,#{commentType})")
     void addComment(Map<String,Object> obj)throws SQLException;
+
+    @Select("select c.*,g.*,ui.* from comments c join goods g on c.goodId=g.id \n" +
+            "join user_infor ui on ui.id=c.userId\n" +
+            "Where c.isDel=0 and c.content like CONCAT('%', #{text},'%')")
+    List<Map<String,Object>> selectCommentByContent(String text)throws SQLException;
 }

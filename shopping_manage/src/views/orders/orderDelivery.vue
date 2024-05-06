@@ -93,7 +93,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import { selectOrdersStateOne, fahuo } from "../../request/order";
+import { selectOrdersStateOne, fahuo ,selectOrdresStateOneById} from "../../request/order";
 const tableData = ref([]);
 const currentPage = ref(1);
 const pageSize = ref(5);
@@ -101,6 +101,7 @@ const total = ref(0);
 const dialogAdd =ref(false);
 const logisticsId=ref(null);
 const id =ref(null);
+const searchKeyword = ref("");
 onMounted(async () => {
   const response = await selectOrdersStateOne();
   if (response.data.code === 0) {
@@ -142,6 +143,27 @@ const addLogisticsId=async()=>{
   dialogAdd.value=false;
 }
 
+async function handleSearch() {
+  const keyword = searchKeyword.value.trim();
+  
+  if (!keyword) {
+    // 如果关键词为空，则加载所有数据
+    const response = await selectOrdersStateOne();
+    if (response.data.code === 0) {
+      tableData.value = response.data.data;
+      total.value = tableData.value.length;
+    }
+  } else {
+    // 如果有关键词，则发送带有关键词的请求进行搜索
+    const response = await selectOrdresStateOneById(keyword);
+    if (response.data.code === 0) {
+      tableData.value = response.data.data;
+      total.value = tableData.value.length;
+    }
+  }
+
+  currentPage.value = 1; // 搜索后重置当前页码为第一页
+}
 </script>
 
 <style lang="less" scoped>

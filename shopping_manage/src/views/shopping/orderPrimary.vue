@@ -189,6 +189,7 @@ onMounted(async () => {
       }
     }
   }
+  
 });
 const updateAddressClick = (data) => {
   dialogUpdateAddress.value = true;
@@ -242,15 +243,24 @@ const selectAddress = (address) => {
 };
 
 const submitOrders = async () => {
+  let isStockError = false;
   if (selectedAddressId.value === null) {
     ElMessage.error("请选择地址");
   } else {
     for (let i = 0; i < order.value.length; i++) {
-      await addOrder(order.value[i]);
+      if(order.value[i].amount>order.value[i].orderInfo.number){
+        ElMessage.error('没有这么多库存');
+        isStockError = true;
+      }
     }
-    router.push({
-      name: "payOrder",
-    });
+    for (let i = 0; i < order.value.length&&!isStockError; i++) {
+        await addOrder(order.value[i]);
+    }
+    if (!isStockError) {
+      router.push({
+        name: "payOrder",
+      });
+    }
   }
 };
 
